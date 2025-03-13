@@ -15,7 +15,7 @@ A simple python script to merge all filtered PRs in a GitHub user/org/repository
     ```bash
     $ python run.py <user> [repo]
     ```
-![NOTE]
+[!NOTE]
 > You can rewrite the `def pr_filter(pr)` function to filter the PRs you want to merge.
 > 
 > The default filter is to merge PRs that submitted by @renovate or @dependabot.
