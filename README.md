@@ -4,7 +4,7 @@ A simple python script to merge all filtered PRs in a GitHub user/org/repository
 
 ## Usage
 
-1. Download the `src/run.py` file.
+1. Download the [`src/run.py`](https://raw.githubusercontent.com/CarmJos/MergeBot/refs/heads/master/src/run.py) file.
 2. Install the [PyGithub](https://github.com/PyGithub/PyGithub) library.    
    ```bash
     $ pip install PyGithub

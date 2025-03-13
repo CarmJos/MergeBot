@@ -28,11 +28,11 @@ def handle_repo(r: Repository):
             print("\033[35m[SKIPPED]\033[0m")
             continue
         try:
-            # pr.merge(
-            #     commit_title=f"[Auto Merge] {pr.title}",
-            #     merge_method="rebase",
-            #     delete_branch=True,
-            # )
+            pr.merge(
+                commit_title=f"[Auto Merge] {pr.title}",
+                merge_method="rebase",
+                delete_branch=True,
+            )
             print("\033[32m[MERGED]\033[0m")
         except Exception as e:
             print(f"An error occurred while trying to merge PR #{pr.number}: {e}")
