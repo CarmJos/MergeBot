@@ -13,7 +13,7 @@ A simple python script to merge all filtered PRs in a GitHub user/org/repository
    - You can create a token at [GitHub/Profile/Tokens](https://github.com/settings/tokens).
 4. Run the script with the following command:
     ```bash
-    $ python run.py <user> [repo]
+    $ python run.py <user/org> [repo]
     ```
 > [!NOTE]
 > You can rewrite the `def pr_filter(pr)` function to filter the PRs you want to merge.
