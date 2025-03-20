@@ -2,6 +2,8 @@
 
 A simple python script to merge all filtered PRs in a GitHub user/org/repository.
 
+![Example](example.png)
+
 ## Usage
 
 1. Download the [`src/run.py`](https://raw.githubusercontent.com/CarmJos/MergeBot/refs/heads/master/src/run.py) file.
