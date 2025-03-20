@@ -2,7 +2,7 @@
 
 A simple python script to merge all filtered PRs in a GitHub user/org/repository.
 
-![Example](example.png)
+![Example](doc/example.png)
 
 ## Usage
 
