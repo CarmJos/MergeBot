@@ -9,7 +9,11 @@ A simple python script to merge all filtered PRs in a GitHub user/org/repository
 1. Download the [`src/run.py`](https://raw.githubusercontent.com/CarmJos/MergeBot/refs/heads/master/src/run.py) file.
 2. Install the [PyGithub](https://github.com/PyGithub/PyGithub) library.    
    ```bash
-    $ pip install PyGithub
+    $ pip install PyGithub tqdm colorama
+    ```
+    or install the required packages from the requirements.txt file.
+   ```bash
+    $ pip install -r requirements.txt
     ```
 3. Replace `ACCESS_TOKEN` with your token in the `run.py` file.
    - You can create a token at [GitHub/Profile/Tokens](https://github.com/settings/tokens).
