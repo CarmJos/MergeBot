@@ -6,7 +6,7 @@ import sys
 
 # Replace with your own GitHub token.
 # See https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
-ACCESS_TOKEN = "ghp_xxxxxxxxxxxxxxxxxxxx"
+ACCESS_TOKEN = "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxx"
 THREAD = 4  # Thread count, default 4.
 
 
@@ -26,9 +26,10 @@ def repo_filter(repo):
 def prefix(color: Fore, status, name):
     return f"{color}[{status}] {Fore.RESET}<{Fore.LIGHTBLUE_EX}{name}{Fore.RESET}>"
 
+
 def handle_repo(r: Repository):
     if not repo_filter(r):
-        tqdm.write(f"{prefix(Fore.MAGENTA, "START", r.name)} Repo filtered, skipped.")
+        tqdm.write(f"{prefix(Fore.LIGHTMAGENTA_EX, "SKIP", r.name)} Repo filtered, skipped.")
 
     try:
         pull_requests = r.get_pulls(state='open')
@@ -36,9 +37,9 @@ def handle_repo(r: Repository):
         pr_count = len(pr_list)
 
         if pr_count == 0:
-            tqdm.write(f"{prefix(Fore.MAGENTA, "START", r.name)} No PRs found, skipped.")
+            tqdm.write(f"{prefix(Fore.LIGHTMAGENTA_EX, "SKIP", r.name)} No PRs found, skipped.")
             return
-        tqdm.write(f"{prefix(Fore.MAGENTA, "START", r.name)} with {pr_count} PRs, processing.")
+        tqdm.write(f"{prefix(Fore.LIGHTGREEN_EX, "START", r.name)} with {pr_count} PRs, processing.")
 
         stats = {'skipped': 0, 'done': 0, 'errors': 0}
         with tqdm(pr_list, desc=f"{r.name:15}", leave=False) as pbar:
@@ -60,7 +61,7 @@ def handle_repo(r: Repository):
                 finally:
                     pbar.set_postfix_str(f"S:{stats['skipped']} D:{stats['done']} E:{stats['errors']}")
         tqdm.write(
-            f"{prefix(Fore.RED, 'DONE', r.name)} "
+            f"{prefix(Fore.GREEN, 'DONE', r.name)} "
             f"MERGED: {stats['done']}  "
             f"SKIPPED: {stats['skipped']}  "
             f"ERRORS: {stats['errors']} "
@@ -80,14 +81,14 @@ if __name__ == "__main__":
     repo_name = sys.argv[2] if len(sys.argv) > 2 else None
 
     try:
-        user = github.get_organization(target)
+        owner = github.get_organization(target)
     except:  # Get user if organization not found.
-        user = github.get_user(target)
+        owner = github.get_user(target)
 
     if repo_name:
-        handle_repo(user.get_repo(repo_name))
+        handle_repo(owner.get_repo(repo_name))
     else:
-        repos = list(user.get_repos())
+        repos = list(owner.get_repos(type='all'))
         if not repos:
             print(f"No repositories found in {target}")
             sys.exit(0)
@@ -97,7 +98,7 @@ if __name__ == "__main__":
         with ThreadPoolExecutor(max_workers=THREAD) as executor:
             futures = [executor.submit(handle_repo, repo) for repo in repos]
 
-            with tqdm(total=len(repos), unit="repo", desc="Repositories Progress") as main_pbar:
+            with tqdm(total=len(repos), unit="repo", desc="Progress") as main_pbar:
                 for future in as_completed(futures):
                     try:
                         future.result()
